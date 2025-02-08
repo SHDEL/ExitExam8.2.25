@@ -13,10 +13,12 @@ import Model.PickledFood;
 import View.View;
 
 public class Controller {
+    //กำหนดตัวแปรสำหรับการคำนวณ
     LocalDate date = LocalDate.now();
     ArrayList<Food> arr = new ArrayList<>();
     View v = new View();
     Food foodFound;
+    //กำหนดตัวแปรสำหรับนับ อาหารที่เช็คแล้ว
     int cntCalculate = 0;
     //กำหนดตัวแปรสำหรับนับ รายการอาหารที่เสีย และไม่เสีย
     int freshCountExpired = 0, freshCountAvailable = 0;
@@ -31,6 +33,7 @@ public class Controller {
         BtnActionListener listener = new BtnActionListener(v, this);
         v.setActionListener(listener);
     }
+    //อ่าน csv file
     private void readCSV(){
         try (Scanner input = new Scanner(Paths.get("food_data.csv"));) {
             while (input.hasNext()){
@@ -56,6 +59,7 @@ public class Controller {
         }
 
     }
+    // เพิ่ม food obj ใส่ arraylist
     private void addFoodlist(int id, FoodType type, int day, int month, int years){
         if (type == FoodType.Fresh){
             FreshFood food = new FreshFood(id, day, month, years);
@@ -71,6 +75,7 @@ public class Controller {
         }
 
     }
+    // แปลง string ประเภทของอาหารให้เป็น FoodType enum
     private FoodType convertType(String str){
         if (str.equals("Fresh")){
             return FoodType.Fresh;
@@ -83,6 +88,7 @@ public class Controller {
         }
         return FoodType.Error;
     }
+    // print และ แสดงผล food ทั้งหมดออกเป็นผลลัพธ์บน View
     private void getAllFood(){
         String text = "";
         int i = 1;
@@ -93,6 +99,7 @@ public class Controller {
         }
         v.getControllerData(text);
     }
+    // รับ input จาก  View
     public void getViewInput(String input){
         System.out.println("Input: " + input);
         String state = verifyData(input);
@@ -101,6 +108,7 @@ public class Controller {
             calculateExpire();
         }
     }
+    // method การเช็คและคำนวณ วันหมดอายุ
     private void calculateExpire(){
         //นับจำนวนที่ตรวจสอบแล้ว
         cntCalculate++;

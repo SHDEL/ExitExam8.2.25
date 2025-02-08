@@ -12,6 +12,7 @@ public class BtnActionListener implements ActionListener{
         this.v = v;
         this.c = c;
     }
+    //สำหรับกำหนด action ที่ปุ่ม Submit
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
@@ -25,6 +26,7 @@ public class BtnActionListener implements ActionListener{
             System.err.println(error);
         }
     }
+    // method สำหรับ handle Submit button ให้ไปรับ input method getInputText จาก View แล้วส่งไปที่ mehod getViewInput ของ Controller
     private void handleSubmit(){
         String input = v.getInputText();
         c.getViewInput(input);
