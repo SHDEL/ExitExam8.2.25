@@ -18,6 +18,7 @@ public class Controller {
     ArrayList<Food> arr = new ArrayList<>();
     View v = new View();
     Food foodFound;
+    Food alreadyChecked;
     //กำหนดตัวแปรสำหรับนับ อาหารที่เช็คแล้ว
     int cntCalculate = 0;
     //กำหนดตัวแปรสำหรับนับ รายการอาหารที่เสีย และไม่เสีย
@@ -164,7 +165,9 @@ public class Controller {
             v.getExpireResult(cntCal , ans1, ans2, ans3);
         }
         v.getExpireResult(cntCal, ans1, ans2, ans3);
+        alreadyChecked = foodFound;
         foodFound = null;
+        
 
     }
     //method สำหรับเช็คเงื่อนไข input FoodData
@@ -182,6 +185,9 @@ public class Controller {
             for (Food food : arr){
                 if (id == food.getFoodId()){
                     foodFound = food;
+                    if (foodFound == alreadyChecked){
+                        return "Already checked";
+                    }
                     System.out.println("found");
                     return "FoodID Found";
                 }
